@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busque seu Pokémon</title>
+</head>
+<body>
+    <h1>Escolha seu Pokémon</h1>
+    <input type="text" id="nome" placeholder="Nome do Pokémon ou ID">
+    <button id="btn">Buscar Pokémon</button>
+
+    <div id="resultado"></div>
+
+    <script>
+
+        const btn = document.getElementById('btn');
+        const resultado = document.getElementById('resultado');
+
+        btn.addEventListener('click', function() {
+            const nomePokemon = document.getElementById('nome').value.toLowerCase().trim();
+
+            fetch(`https://pokeapi.co/api/v2/pokemon/${nomePokemon}`)
+                .then(function(resposta){
+                return resposta.json()
+            })
+            .then(function(respostaPokemon){
+                    const nome = respostaPokemon.name;
+                    const id = respostaPokemon.id;
+                    const tipos = respostaPokemon.types.map(t => t.type.name).join(', ');
+                    const imagem = respostaPokemon.sprites.front_default;
+
+                    resultado.innerHTML = `
+                        <h2>${nome} - ID: ${id}</h2>
+                        <p><strong>Tipo:</strong> ${tipos}</p>
+                        <img src="${imagem}" alt="${nome}">
+                    `;
+                })
+                
+        });
+
+    </script>
+       
+    
+</body>
+</html>

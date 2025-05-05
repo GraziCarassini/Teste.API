@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste API</title>
+</head>
+<body>
+    <h1>Página Inicial</h1>
+    <h2>Dados do Usuário</h2>
+    <input type="text" id="nome" placeholder="Nome" disabled>
+    <input type="text" id="profissao" placeholder="Profissão" disabled>
+    <input type="text" id="idade" placeholder="Idade" disabled>
+    <button id="btn">Salvar Dados</button>
+    <script>
+        const nome = document.getElementById('nome')
+        const profissao = document.getElementById('profissao')
+        const idade = document.getElementById('idade')
+
+        fetch('./dados.json')
+            .then(function(resposta){
+                return resposta.json()
+            })
+            .then(function(json){
+                nome.innerText = json.nome;
+                profissao.innerText = json.profissao;
+                idade.innerText = json.idade;
+            })
+            .catch(error => console.error('Erro ao carregar os dados:', error))
+    </script>  
+            
+    
+</body>
+</html>
